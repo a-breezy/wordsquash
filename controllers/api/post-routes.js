@@ -1,9 +1,9 @@
 const router = require("express").Router();
 const sequelize = require("../../config/connection");
-const { Post, User, Vote, Comment } = require("../../models");
+const { Post, User, Comment } = require("../../models");
 const withAuth = require("../../utils/auth");
 
-// get all users
+// GET /api/posts
 router.get("/", (req, res) => {
 	console.log("=====================");
 	Post.findAll({
@@ -42,6 +42,7 @@ router.get("/", (req, res) => {
 		});
 });
 
+// GET /api/posts/:id
 router.get("/:id", (req, res) => {
 	Post.findOne({
 		where: {
@@ -87,12 +88,12 @@ router.get("/:id", (req, res) => {
 		});
 });
 
+// POST /api/posts
 router.post("/", withAuth, (req, res) => {
-	// expects {title: 'Taskmaster goes public!', post_url: 'https://taskmaster.com/press', user_id: 1}
 	Post.create({
 		title: req.body.title,
 		post_url: req.body.post_url,
-		user_id: req.session.user_id, //obtain the user id from the session as logged in sql
+		user_id: req.session.user_id, 
 	})
 		.then((dbPostData) => res.json(dbPostData))
 		.catch((err) => {
@@ -101,23 +102,24 @@ router.post("/", withAuth, (req, res) => {
 		});
 });
 
-// Put /api/post/upvote
-router.put("/upvote", withAuth, (req, res) => {
-	// make sure the session exists first
-	if (req.session) {
-		// pass session id with all destructured properties on req.body
-		Post.upvote(
-			{ ...req.body, user_id: req.session.user_id },
-			{ Vote, Comment, User }
-		)
-			.then((updatedVoteData) => res.json(updatedVoteData))
-			.catch((err) => {
-				console.log(err);
-				res.status(500).json(err);
-			});
-	}
-});
+// UPDATE	 /api/post/upvote
+// router.put("/upvote", withAuth, (req, res) => {
+// 	// make sure the session exists first
+// 	if (req.session) {
+// 		// pass session id with all destructured properties on req.body
+// 		Post.upvote(
+// 			{ ...req.body, user_id: req.session.user_id },
+// 			{ Vote, Comment, User }
+// 		)
+// 			.then((updatedVoteData) => res.json(updatedVoteData))
+// 			.catch((err) => {
+// 				console.log(err);
+// 				res.status(500).json(err);
+// 			});
+// 	}
+// });
 
+// PUT /api/posts/:id
 router.put("/:id", withAuth, (req, res) => {
 	Post.update(
 		{
@@ -142,6 +144,7 @@ router.put("/:id", withAuth, (req, res) => {
 		});
 });
 
+// DELETE /api/posts/:id
 router.delete("/:id", withAuth, (req, res) => {
 	Post.destroy({
 		where: {
