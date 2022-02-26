@@ -1,10 +1,11 @@
 <ol class="post-list">
-  {{!-- {{#each posts as |post|}} --}}
+  {{#each posts as |post|}}
+
   <li>
-      {{!-- {{> post-info post}} --}}
+      {{> post-info post}}
       <article class="post">
         <div class="title">
-          <a href="{{post_url}}" target="_blank">{{title}}</a>
+          <a href="{{description}}" target="_blank">{{title}}</a>
           <span>{{created_at}}</span>
         </div>
         <div class="meta">
@@ -15,5 +16,5 @@
         </div>
       </article>
   </li>
-  {{!-- {{/each}} --}}
+  {{/each}}
 </ol>
