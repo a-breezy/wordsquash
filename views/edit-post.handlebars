@@ -1,14 +1,16 @@
 {{> post-info post}}
 
 {{#if loggedIn}}
-<form class="comment-form">
+<form class="edit-post-form">
   <div>
-    <textarea name="comment-body"></textarea>
+    <input name="title" value="{{post.title}}"></input>
   </div>
-
   <div>
-    <button type="submit">add comment</button>
-    <button type="button" class="upvote-btn">upvote</button>
+    <textarea id="edit-body">{{post.description}}</textarea>
+  </div>
+  <div>
+    <button type="submit">submit edit</button>
+    <button class="delete-post-btn" type="submit">delete post</button>
   </div>
 </form>
 {{/if}}
@@ -16,6 +18,7 @@
 {{> comments post.comments}}
 
 {{#if loggedIn}}
-<script src="/javascript/comment.js"></script>
-<script src="/javascript/upvote.js"></script>
+<script src="/javascript/edit-post.js"></script>
+{{!-- <script src="/javascript/comment.js"></script> --}}
+<script src="/javascript/delete-post.js"></script>
 {{/if}}
