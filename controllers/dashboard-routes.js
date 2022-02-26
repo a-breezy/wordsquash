@@ -10,18 +10,7 @@ router.get("/", withAuth, (req, res) => {
 			user_id: req.session.user_id,
 		},
 		{
-			attributes: [
-				"id",
-				"post_url",
-				"title",
-				"created_at",
-				// [
-				// 	sequelize.literal(
-				// 		"(SELECT COUNT(*) FROM vote WHERE post.id = cote.post_id)"
-				// 	),
-				// 	"vote_count",
-				// ],
-			],
+			attributes: ["id", "description", "title", "created_at"],
 			include: [
 				{
 					model: Comment,
@@ -55,20 +44,10 @@ router.get("/", withAuth, (req, res) => {
 		});
 });
 
+// route to edit post based on id
 router.get("/edit/:id", withAuth, (req, res) => {
 	Post.findByPk(req.params.id, {
-		attributes: [
-			"id",
-			"post_url",
-			"title",
-			"created_at",
-			// [
-			// 	sequelize.literal(
-			// 		"(SELECT COUNT(*) FROM vote WHERE post.id = vote.post_id)"
-			// 	),
-			// 	"vote_count",
-			// ],
-		],
+		attributes: ["id", "description", "title", "created_at"],
 		include: [
 			{
 				model: Comment,
@@ -100,4 +79,5 @@ router.get("/edit/:id", withAuth, (req, res) => {
 			res.status(500).json(err);
 		});
 });
+
 module.exports = router;

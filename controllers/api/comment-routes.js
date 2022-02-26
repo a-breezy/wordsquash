@@ -2,18 +2,17 @@ const router = require("express").Router();
 const { Comment } = require("../../models");
 const withAuth = require("../../utils/auth");
 
-// GET /api/comments
-router.get("/", (req, res) => {
-	Comment.findAll()
-		.then((dbCommentData) => res.json(dbCommentData))
-		.catch((err) => {
-			console.log(err);
-			res.status(500).json(err);
-		});
-});
+// // GET /api/comments --> get all comments
+// router.get("/", (req, res) => {
+// 	Comment.findAll()
+// 		.then((dbCommentData) => res.json(dbCommentData))
+// 		.catch((err) => {
+// 			console.log(err);
+// 			res.status(500).json(err);
+// 		});
+// });
 
-// POST /api/comments
-// requires withAuth middleware to verify loggedin
+// POST /api/comments --> create new comment
 router.post("/", withAuth, (req, res) => {
 	Comment.create({
 		comment_text: req.body.comment_text,
@@ -27,7 +26,7 @@ router.post("/", withAuth, (req, res) => {
 		});
 });
 
-// DELETE /api/comments/:id
+// DELETE /api/comments/:id --> delete comment
 router.delete("/:id", withAuth, (req, res) => {
 	Comment.destroy({
 		where: {
