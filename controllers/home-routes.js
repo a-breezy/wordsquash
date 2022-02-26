@@ -1,22 +1,25 @@
 const router = require("express").Router();
 const sequelize = require("../config/connection");
-const { Post, User, Comment, Vote } = require("../models");
+const { Post, User, Comment } = require("../models");
+// const {Vote } = require('../models') --> get rid of Vote model because there's no upvoting
 
 // get all posts for homepage
 router.get("/", (req, res) => {
-	console.log("======================");
+	console.log(
+		"========================================================================================"
+	);
 	Post.findAll({
 		attributes: [
 			"id",
 			"post_url",
 			"title",
 			"created_at",
-			[
-				sequelize.literal(
-					"(SELECT COUNT(*) FROM vote WHERE post.id = vote.post_id)"
-				),
-				"vote_count",
-			],
+			// [
+			// 	sequelize.literal(
+			// 		"(SELECT COUNT(*) FROM vote WHERE post.id = vote.post_id)"
+			// 	),
+			// 	"vote_count",
+			// ],
 		],
 		include: [
 			{
@@ -37,8 +40,17 @@ router.get("/", (req, res) => {
 			const posts = dbPostData.map((post) => post.get({ plain: true }));
 
 			res.render("homepage", {
-				posts,
-				loggedIn: req.session.loggedIn,
+				// posts,
+				// loggedIn: req.session.loggedIn,
+				id: 1,
+				post_url: "https://handlebarsjs.com/guide/",
+				title: "Handlebars Docs",
+				created_at: new Date(),
+				vote_count: 10,
+				comments: [{}, {}],
+				user: {
+					username: "test_user",
+				},
 			});
 		})
 		.catch((err) => {
@@ -58,12 +70,12 @@ router.get("/post/:id", (req, res) => {
 			"post_url",
 			"title",
 			"created_at",
-			[
-				sequelize.literal(
-					"(SELECT COUNT(*) FROM vote WHERE post.id = vote.post_id)"
-				),
-				"vote_count",
-			],
+			// [
+			// 	sequelize.literal(
+			// 		"(SELECT COUNT(*) FROM vote WHERE post.id = vote.post_id)"
+			// 	),
+			// 	"vote_count",
+			// ],
 		],
 		include: [
 			{

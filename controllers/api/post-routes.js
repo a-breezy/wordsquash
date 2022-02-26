@@ -5,7 +5,7 @@ const withAuth = require("../../utils/auth");
 
 // GET /api/posts
 router.get("/", (req, res) => {
-	console.log("=====================");
+	console.log("==========================================");
 	Post.findAll({
 		order: [["created_at", "DESC"]],
 		attributes: [
@@ -13,12 +13,12 @@ router.get("/", (req, res) => {
 			"post_url",
 			"title",
 			"created_at",
-			[
-				sequelize.literal(
-					`(SELECT COUNT(*) FROM vote WHERE post.id = vote.post_id)`
-				),
-				"vote_count",
-			],
+			// [
+			// 	sequelize.literal(
+			// 		`(SELECT COUNT(*) FROM vote WHERE post.id = vote.post_id)`
+			// 	),
+			// 	"vote_count",
+			// ],
 		],
 		include: [
 			{
@@ -53,12 +53,12 @@ router.get("/:id", (req, res) => {
 			"post_url",
 			"title",
 			"created_at",
-			[
-				sequelize.literal(
-					`(SELECT COUNT(*) FROM vote WHERE post.id = vote.post_id)`
-				),
-				"vote_id",
-			],
+			// [
+			// 	sequelize.literal(
+			// 		`(SELECT COUNT(*) FROM vote WHERE post.id = vote.post_id)`
+			// 	),
+			// 	"vote_id",
+			// ],
 		],
 		include: [
 			{
@@ -93,7 +93,7 @@ router.post("/", withAuth, (req, res) => {
 	Post.create({
 		title: req.body.title,
 		post_url: req.body.post_url,
-		user_id: req.session.user_id, 
+		user_id: req.session.user_id,
 	})
 		.then((dbPostData) => res.json(dbPostData))
 		.catch((err) => {
