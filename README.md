@@ -9,7 +9,7 @@ Are you interested in tech and chatting with others that are just as keen as you
 In this CMS style blog site users can create an account where they are able to post content with title, update post content and title, and comment on other users' posts. With all this, we hope to foster a rich community of users interested in tech!
 
 [GitHub Repo](https://github.com/a-breezy/wordsquash)
-[Deployed App]()
+[Deployed App](https://stormy-ridge-45640.herokuapp.com/)
 
 ## Table of Contents
 
@@ -23,15 +23,20 @@ In this CMS style blog site users can create an account where they are able to p
 
 ## Installation Instructions
 
-Simply open the app at its [deployed location](https://quiet-river-39422.herokuapp.com/) and start blogging to your hearts content!
+Simply open the app at its [deployed location](https://stormy-ridge-45640.herokuapp.com/) and start blogging to your hearts content!
 
 ---
 ## Usage
 
-![Usage 1](./public/img/sts1.png "Before Budgeting")*Before Budgeting*
+![Usage 1](./img/landing-page.png "Landing Page")*Landing Page*
 
-![Usage 2](./public/img/sts1.png "After Budgeting")*After Budgeting*
+![Usage 2](./img/login-page.png "Login Page")*Login Page*
 
+![Usage 3](./img/user-dashboard.png "User Dashboard")*User Dashboard*
+
+![Usage 4](./img/edit-post-page.png "Page to Edit Post")*Page to Edit Post*
+
+![Usage 5](./img/comment-page.png "Page to Comment on a Post")*Page to Comment on a Post*
 
 ---
 ## License
